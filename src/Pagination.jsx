@@ -543,7 +543,7 @@ class Pagination extends React.Component {
       const nextItemTitle = showLessItems ? locale.next_3 : locale.next_5;
       if (showPrevNextJumpers) {
         jumpPrev = (
-          <li
+          <div
             title={showTitle ? prevItemTitle : null}
             key="prev"
             onClick={this.jumpPrev}
@@ -558,10 +558,10 @@ class Pagination extends React.Component {
               'jump-prev',
               this.getItemIcon(jumpPrevIcon, 'prev page'),
             )}
-          </li>
+          </div>
         );
         jumpNext = (
-          <li
+          <div
             title={showTitle ? nextItemTitle : null}
             key="next"
             tabIndex="0"
@@ -576,7 +576,7 @@ class Pagination extends React.Component {
               'jump-next',
               this.getItemIcon(jumpNextIcon, 'next page'),
             )}
-          </li>
+          </div>
         );
       }
       lastPager = (
@@ -677,7 +677,7 @@ class Pagination extends React.Component {
     const prevDisabled = !this.hasPrev() || !allPages;
     const nextDisabled = !this.hasNext() || !allPages;
     return (
-      <ul
+      <div
         className={classNames(prefixCls, className, {
           [`${prefixCls}-disabled`]: disabled,
         })}
@@ -687,31 +687,7 @@ class Pagination extends React.Component {
         {...dataOrAriaAttributeProps}
       >
         {totalText}
-        <li
-          title={showTitle ? locale.prev_page : null}
-          onClick={this.prev}
-          tabIndex={prevDisabled ? null : 0}
-          onKeyPress={this.runIfEnterPrev}
-          className={classNames(`${prefixCls}-prev`, {
-            [`${prefixCls}-disabled`]: prevDisabled,
-          })}
-          aria-disabled={prevDisabled}
-        >
-          {this.renderPrev(prevPage)}
-        </li>
-        {pagerList}
-        <li
-          title={showTitle ? locale.next_page : null}
-          onClick={this.next}
-          tabIndex={nextDisabled ? null : 0}
-          onKeyPress={this.runIfEnterNext}
-          className={classNames(`${prefixCls}-next`, {
-            [`${prefixCls}-disabled`]: nextDisabled,
-          })}
-          aria-disabled={nextDisabled}
-        >
-          {this.renderNext(nextPage)}
-        </li>
+
         <Options
           disabled={disabled}
           locale={locale}
@@ -721,11 +697,40 @@ class Pagination extends React.Component {
           changeSize={this.getShowSizeChanger() ? this.changePageSize : null}
           current={current}
           pageSize={pageSize}
+          allPages={allPages}
           pageSizeOptions={pageSizeOptions}
           quickGo={this.shouldDisplayQuickJumper() ? this.handleChange : null}
           goButton={goButton}
-        />
-      </ul>
+        >
+          <div className={`${prefixCls}-page`}>
+            <div
+              title={showTitle ? locale.prev_page : null}
+              onClick={this.prev}
+              tabIndex={prevDisabled ? null : 0}
+              onKeyPress={this.runIfEnterPrev}
+              className={classNames(`${prefixCls}-prev`, {
+                [`${prefixCls}-disabled`]: prevDisabled,
+              })}
+              aria-disabled={prevDisabled}
+            >
+              {this.renderPrev(prevPage)}
+            </div>
+            {pagerList}
+            <div
+              title={showTitle ? locale.next_page : null}
+              onClick={this.next}
+              tabIndex={nextDisabled ? null : 0}
+              onKeyPress={this.runIfEnterNext}
+              className={classNames(`${prefixCls}-next`, {
+                [`${prefixCls}-disabled`]: nextDisabled,
+              })}
+              aria-disabled={nextDisabled}
+            >
+              {this.renderNext(nextPage)}
+            </div>
+          </div>
+        </Options>
+      </div>
     );
   }
 }

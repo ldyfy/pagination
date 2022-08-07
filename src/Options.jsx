@@ -91,6 +91,7 @@ class Options extends React.Component {
       buildOptionText,
       selectPrefixCls,
       disabled,
+      allPages,
     } = this.props;
     const { goInputText } = this.state;
     const prefixCls = `${rootPrefixCls}-options`;
@@ -162,6 +163,7 @@ class Options extends React.Component {
             onBlur={this.handleBlur}
             aria-label={locale.page}
           />
+          {`/ ${allPages}`}
           {locale.page}
           {gotoButton}
         </div>
@@ -169,10 +171,11 @@ class Options extends React.Component {
     }
 
     return (
-      <li className={`${prefixCls}`}>
-        {changeSelect}
-        {goInput}
-      </li>
+      <>
+        <div className={`${prefixCls} ${prefixCls}-select`}>{changeSelect}</div>
+        <div className={`${prefixCls} ${prefixCls}-jump`}>{goInput}</div>
+        {this.props.children}
+      </>
     );
   }
 }

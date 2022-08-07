@@ -19,7 +19,7 @@ const Pager = (props) => {
   };
 
   return (
-    <li
+    <div
       title={props.showTitle ? props.page : null}
       className={cls}
       onClick={handleClick}
@@ -27,7 +27,7 @@ const Pager = (props) => {
       tabIndex="0"
     >
       {props.itemRender(props.page, 'page', <a rel="nofollow">{props.page}</a>)}
-    </li>
+    </div>
   );
 };
 
